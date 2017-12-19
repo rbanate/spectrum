@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import EZModal from 'sui-react-ezmodal';
 
 import ImportKeystoreForm from './import_keystore_form';
@@ -52,6 +53,7 @@ export default class ImportKeystore extends Component {
         trigger={this.props.trigger}
         onClose={this.handleReset}
         content={props => <ImportKeystoreForm {...props} onGetPrivateKey={this.handleGotPrivateKey} />}
+        errorHeader="Error"
       />
     );
   }

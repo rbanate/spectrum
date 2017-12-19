@@ -1,5 +1,6 @@
-import React, { PropTypes, Component } from 'react';
-import { Icon, Table, Header, Image } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Table, Header, Image, Checkbox } from 'semantic-ui-react';
 import EZModal from 'sui-react-ezmodal';
 
 import blockie from '~/helpers/blockie';
@@ -10,9 +11,12 @@ import AddressBalances from './address_balances';
 export default class KeystoreAddress extends Component {
   static propTypes = {
     address: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
   };
+
   render() {
-    const { address } = this.props;
+    const { address, onChange, disabled } = this.props;
     return (
       <Table.Row>
         <Table.Cell width="1">
@@ -27,6 +31,15 @@ export default class KeystoreAddress extends Component {
                   header={address.name}
                   content={<QrCode data={address.address} />}
                   trigger={<Icon name={'qrcode'} style={{ cursor: 'pointer' }} />}
+                />
+                <br />
+                <Checkbox
+                  radio
+                  disabled={disabled}
+                  onClick={onChange}
+                  checked={address.isDefault}
+                  style={{ fontSize: '0.8em' }}
+                  label="Set as default address"
                 />
               </Header.Subheader>
             </Header.Content>

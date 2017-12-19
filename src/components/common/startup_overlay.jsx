@@ -1,4 +1,5 @@
-import React, { PropTypes, Component, cloneElement } from 'react';
+import React, { Component, cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import EZModal from 'sui-react-ezmodal';
 import { Label, Button } from 'semantic-ui-react';
 
@@ -25,8 +26,8 @@ export default class StartupOverlay extends Component {
   }
   render() {
     const { trigger, content, title } = this.props;
-    const wrappedTrigger = cloneElement(trigger, { onClick: this.handleTriggerClick });
-    if (this.state.hidden) { return wrappedTrigger; }
+    const wrappedTrigger = trigger && cloneElement(trigger, { onClick: this.handleTriggerClick });
+    if (this.state.hidden) { return wrappedTrigger || null; }
     return (
       <div>
         <Label
@@ -40,7 +41,7 @@ export default class StartupOverlay extends Component {
           initiallyOpen
           trigger={wrappedTrigger}
           closeOnDimmerClick={false}
-          header={title || 'Spectrum'}
+          header={title || 'Welcome to Spectrum'}
           onClose={() => { this.setState({ hidden: true }); }}
           content={
             <div

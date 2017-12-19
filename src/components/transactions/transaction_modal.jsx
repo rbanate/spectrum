@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import TransactionTracker from './transaction_tracker';
 import TransactionModalForm from './transaction_modal_form';
@@ -29,7 +30,7 @@ export default class TransactionModal extends Component {
     network: undefined,
     renderFailure: undefined,
     handleValidation: undefined,
-    data: {},
+    data: { gas: 999999 },
   }
   constructor(props) {
     super(props);

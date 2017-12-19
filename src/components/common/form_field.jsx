@@ -1,5 +1,7 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Input, Form } from 'semantic-ui-react';
+import { isEqual } from 'underscore';
 
 export default class FormField extends Component {
   static propTypes = {
@@ -10,12 +12,16 @@ export default class FormField extends Component {
     options: PropTypes.array,
     placeholder: PropTypes.string,
     label: PropTypes.string,
+    inlineLabel: PropTypes.string,
+    inlineLabelRight: PropTypes.bool,
   };
   static defaultProps = {
     defaultValue: undefined,
     options: undefined,
     placeholder: undefined,
     label: undefined,
+    inlineLabel: undefined,
+    inlineLabelRight: false,
     formData: {},
   }
   componentDidMount() {
@@ -27,10 +33,12 @@ export default class FormField extends Component {
   shouldComponentUpdate(nextProps) {
     if (nextProps.name !== this.props.name) { return true; }
     if (this.props.formData[this.props.name] !== nextProps.formData[nextProps.name]) { return true; }
+    if (!isEqual(nextProps.options, this.props.options)) { return true; }
     return false;
   }
   render() {
-    const { formChange, formData, name, options, placeholder, label, ...rest } = this.props;
+    const { formChange, formData, name, options, placeholder, label, inlineLabel, inlineLabelRight, ...rest } = this.props;
+    const inlinePosition = inlineLabelRight ? 'right' : 'left';
     const value = formData[name] === undefined ? '' : formData[name];
     if (rest.type === 'select') {
       const mappedOptions = options.map(({ id, name: text }) => ({ key: id, value: id, text }));
@@ -48,11 +56,13 @@ export default class FormField extends Component {
     }
     return (
       <Form.Field>
-        {label && <label htmlFor={name}>{label}</label>}
+        { label && <label htmlFor={name}>{label}</label>}
         <Input
           {...rest}
           placeholder={placeholder}
           onChange={e => formChange({ target: { name: e.target.name, value: e.target.value } })}
+          label={inlineLabel && { basic: true, content: inlineLabel }}
+          labelPosition={inlinePosition}
           name={name}
           value={value}
         />

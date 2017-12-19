@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Message } from 'semantic-ui-react';
 
 function parseContent(content) {
@@ -6,6 +7,12 @@ function parseContent(content) {
   if (typeof content === 'string') {
     return content;
   }
+  if (content instanceof Error) {
+    const errorMsg = content;
+    errorMsg.name = '';
+    return errorMsg.toString();
+  }
+
   return <pre>{JSON.stringify(content, null, 2)}</pre>;
 }
 export default class ErrorMessage extends Component {
@@ -15,6 +22,7 @@ export default class ErrorMessage extends Component {
   };
   static defaultProps = {
     children: undefined,
+    content: undefined,
   }
   render() {
     const { content, children } = this.props;

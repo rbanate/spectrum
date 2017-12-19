@@ -1,8 +1,10 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Message, Table, Grid, Label, Segment, Header, Icon } from 'semantic-ui-react';
 
 import { createKeystore, updateKeystore, deleteKeystore } from '~/actions/keystore';
+import { updateSession } from '~/actions/session';
 import { getKeystores } from '~/selectors';
 
 import KeystoreModal from './keystore_modal';
@@ -15,6 +17,38 @@ class Keystores extends Component {
     keystores: PropTypes.array.isRequired,
     updateKeystore: PropTypes.func.isRequired,
     deleteKeystore: PropTypes.func.isRequired,
+    updateSession: PropTypes.func.isRequired,
+  }
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { keystores } = nextProps;
+    if (keystores) {
+      // const addresses = [];
+      const addresses = keystores.map(keystore => keystore)
+        .reduce((key, keystore) => {
+          keystore.addresses.map(addr => key.push(addr));
+          return key;
+         // return addresses;
+        }, []);
+
+      let defaultAddress;
+      try {
+        defaultAddress = addresses.find(address => address.isDefault);
+        if (defaultAddress === undefined) {
+          // console.log(addresses[0].address);
+          this.props.updateSession({ defaultAddress: addresses[0].address });
+        }
+      } catch (e) { // do nothing
+      }
+    }
+  }
+
+  handleChange({ address }) {
+    this.props.updateSession({ defaultAddress: address });
   }
   renderKeystores() {
     return this.props.keystores.map(keystore => (
@@ -37,7 +71,14 @@ class Keystores extends Component {
         <Table basic="very">
           <Table.Body>
             {keystore.addresses.map(address => (
-              <Address {...this.props} key={address.address} keystore={keystore} address={address} />
+              <Address
+                onChange={() => this.handleChange(address)}
+                {...this.props}
+                key={address.address}
+                keystore={keystore}
+                address={address}
+                disabled={this.props.keystores.length === 1}
+              />
             ))}
           </Table.Body>
         </Table>
@@ -83,6 +124,7 @@ const actions = {
   createKeystore,
   updateKeystore,
   deleteKeystore,
+  updateSession,
 };
 
 export default connect(mapStateToProps, actions)(Keystores);
