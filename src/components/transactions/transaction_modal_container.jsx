@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 import Web3Connect from '~/helpers/web3/connect';
 

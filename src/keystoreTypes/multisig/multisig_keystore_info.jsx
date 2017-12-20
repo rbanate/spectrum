@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 import { Button } from 'semantic-ui-react';
 
 import MultiSig from '@digix/truffle-gnosis-multisig/spectrum/index.jsx';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ipfsAPI from 'ipfs-api';
 import multihash from 'multi-hash';
 import { Form, Button } from 'semantic-ui-react';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 import { IPFS_API_CONFIG } from '~/helpers/constants';
 import IPFSImage from './ipfs_image';

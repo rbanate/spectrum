@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Form, Label } from 'semantic-ui-react';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 import { getNetworksWithTokens, getDefaultNetworks } from '~/selectors';
 

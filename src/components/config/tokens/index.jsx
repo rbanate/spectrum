@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Table, Button, Header } from 'semantic-ui-react';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 import { createToken, updateToken, deleteToken } from '~/actions/token';
 import { getTokens } from '~/selectors';

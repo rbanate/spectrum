@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Grid, Segment, Button, Header } from 'semantic-ui-react';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 import web3Connect from '~/helpers/web3/connect';
 import { createNetwork, updateNetwork, deleteNetwork } from '~/actions/network';

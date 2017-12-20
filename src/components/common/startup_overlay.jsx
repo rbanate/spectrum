@@ -1,6 +1,6 @@
 import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 import { Label, Button } from 'semantic-ui-react';
 
 export default class StartupOverlay extends Component {

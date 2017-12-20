@@ -7,7 +7,7 @@ import { getKeystoreTypes, getNetworksWithTokens, getDefaultNetworks } from '~/s
 
 import config from '~/../spectrum.config';
 
-import EZModal from 'sui-react-ezmodal';
+import EZModal from '@digix/sui-react-ezmodal';
 
 class KeystoreModal extends Component {
   static propTypes = {

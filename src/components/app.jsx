@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Dropdown, Loader } from 'semantic-ui-react';
 
 import config from '~/../spectrum.config';
-
+// import Dapplet from '~/../spectrum.dapplet';
 import TransactionSigningOverlay from '~/components/transactions/transaction_signing_overlay';
 import MenuSystem from '~/components/common/menu_system';
 import StartupOverlay from '~/components/common/startup_overlay';
@@ -19,6 +19,7 @@ import SpectrumWatermark from '~/components/common/spectrum_watermark';
 // TODO import Dapplets from '~/components/dapplets';
 
 const Dapplet = config.dapplet && config.dapplet();
+const isProduction = process.env.NODE_ENV === 'production';
 
 const menu = config.menuStyle !== 'hidden' &&
   (Dapplet ? [{
@@ -43,7 +44,7 @@ class App extends Component {
     return (
       <div className="pusher">
         <TransactionSigningOverlay />
-        {config.showOverlay && <StartupOverlay />}
+        {config.showOverlay !== false && isProduction && <StartupOverlay />}
         <HashRouter>
           <MenuSystem
             usingRouter

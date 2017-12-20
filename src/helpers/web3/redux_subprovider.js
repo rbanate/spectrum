@@ -13,6 +13,8 @@ export default class ReduxSubProvider extends HookedWalletEthTx {
         cb(null, addresses);
       },
     });
+    this.rpcStore = store;
+    this.rpcNetworkId = networkId;
     this.sanitizeData = (txData, network) => ({
       to: txData.to,
       from: txData.from,
@@ -25,10 +27,10 @@ export default class ReduxSubProvider extends HookedWalletEthTx {
     });
     // overriding https://github.com/MetaMask/provider-engine/blob/master/subproviders/hooked-wallet-ethtx.js
     this.signTransaction = ({ ui, ...data }, cb) => {
-      const network = (getNetworks(store.getState()).find(({ id }) => id === networkId) || {});
+      const network = (getNetworks(this.rpcStore.getState()).find(({ id }) => id === this.rpcNetworkId) || {});
       const txData = this.sanitizeData(data, network);
-      const address = getAddresses(store.getState()).find(a => a.address === txData.from);
-      store.dispatch(showTxSigningModal({ address, txData, ui, network })).then(({ signedTx }) => {
+      const address = getAddresses(this.rpcStore.getState()).find(a => a.address === txData.from);
+      this.rpcStore.dispatch(showTxSigningModal({ address, txData, ui, network })).then(({ signedTx }) => {
         cb(null, signedTx);
       }).catch(cb);
     };
