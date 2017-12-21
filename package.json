@@ -48,6 +48,7 @@
     ".gitignore"
   ],
   "dependencies": {
+    "@rlb/petshop": "file:../petshop",
     "@digix/react-ledger-container": "0.0.7",
     "@digix/redux-crypto-prices": "0.0.1",
     "@digix/sui-react-ezmodal": "0.0.2",

@@ -74,7 +74,7 @@ const baseConfig = {
         fs.realpathSync(`${__dirname}/node_modules/@digix/redux-crypto-prices`),
         fs.realpathSync(`${__dirname}/node_modules/@digix/truffle-gnosis-multisig`),
         // dapplets
-        // fs.realpathSync(`${__dirname}/node_modules/@digix/marketplace-ui`),
+        fs.realpathSync(`${__dirname}/node_modules/@rlb/petshop`),
         // fs.realpathSync(`${__dirname}/node_modules/@digix/kyc-system`),
       ],
       use: [
